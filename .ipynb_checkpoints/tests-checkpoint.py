@@ -30,7 +30,5 @@ def test(query):
             print('Be sure to sort your data!')
         else:
             print('❌ incorrect')
-            
-    return answer, query_results
 
 
