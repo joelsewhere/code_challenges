@@ -459,7 +459,7 @@ run_query(query)
 ```python
 # Run this code to test the results of your query
 from tests import test
-a, r = test(query)
+test(query)
 ```
 
     ✅ Correct!
@@ -470,7 +470,7 @@ a, r = test(query)
 #__SOLUTION__
 # Run this code to test the results of your query
 from tests import test
-a, r = test(query)
+test(query)
 ```
 
     ✅ Correct!
