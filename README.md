@@ -59,42 +59,10 @@ def run_query(query_string):
     return pd.read_sql(query_string, conn)
 ```
 
-
-```python
-#__SOLUTION__
-# Run this code unchanged
-import pandas as pd
-import sqlite3
-conn = sqlite3.connect('orders.db')
-
-def run_query(query_string):
-    
-    return pd.read_sql(query_string, conn)
-```
-
 **Here is an example of writing an sql query in a jupyter notebook...**
 
 
 ```python
-# Run this code unchanged
-
-## Triple quotations are used
-## to allow for a multiline string
-query = """
-
-select *
-from example_table
-order by col3 desc
-
-"""
-
-## Pass the query into the `run_query` function
-run_query(query)
-```
-
-
-```python
-#__SOLUTION__
 # Run this code unchanged
 
 ## Triple quotations are used
@@ -134,43 +102,12 @@ query = """
 
 
 ```python
-#__SOLUTION__
-
-query = """
-
-select date
-     , customer_id
-     , sum(amount_spent) over(partition by customer_id order by date rows unbounded preceding) cumulative_total
-from orders o
-join customer_activity c
-on o.order_id = c.order_id
-order by date asc
-"""
-```
-
-
-```python
 # Inspect the output of your query here
 run_query(query)
 ```
 
 
 ```python
-#__SOLUTION__
-# Inspect the output of your query here
-run_query(query)
-```
-
-
-```python
-# Run this code to test the results of your query
-from tests import test
-a, r = test(query)
-```
-
-
-```python
-#__SOLUTION__
 # Run this code to test the results of your query
 from tests import test
 a, r = test(query)
