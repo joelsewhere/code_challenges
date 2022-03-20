@@ -3,4 +3,4 @@
 edit_branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 challenge_branch="${edit_branch}_challenge"
 solution_branch="${edit_branch}_solution"
-ds create --local --CreateApp.edit_branch=$edit_branch --CreateApp.branches=$edit_branch --CreateApp.branches=$challenge_branch --CreateApp.branches=$solution_branch --ExecutePreprocessor.kernel_name=python3
+ds create --execute=False --CreateApp.edit_branch=$edit_branch --CreateApp.branches=$edit_branch --CreateApp.branches=$challenge_branch --CreateApp.branches=$solution_branch --ExecutePreprocessor.kernel_name=python3
