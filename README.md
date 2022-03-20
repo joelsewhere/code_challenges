@@ -11,17 +11,6 @@ An sqlite3 database called `calculate_skips.db` is stored in this repository. Th
 
 
 ```python
-#__CURRICULUM__
-from tests import generate_test_data
-
-generate_test_data(100)
-```
-
-    100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [39:25<00:00, 23.66s/it]
-
-
-
-```python
 # Run this cell unchanged
 import os
 import sqlite3
