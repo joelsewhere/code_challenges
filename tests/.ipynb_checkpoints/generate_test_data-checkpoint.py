@@ -60,9 +60,9 @@ def create_tests_db(data, name):
     pardir = os.path.abspath(os.path.join(__file__, os.pardir, os.pardir))
     path = os.path.join(pardir, 'data', 'tests.db')
     connection = sqlite3.connect(path)
-    data.to_sql(name, connection, index=False)
+    data.to_sql(name, connection, index=False, if_exists='replace')
     __ = _(data)
-    __.to_sql(name + '__', connection, index=False)
+    __.to_sql(name + '__', connection, index=False, if_exists='replace')
 
 def generate_test_data(num_test_datasets=20):
     options = load_options()
