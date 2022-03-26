@@ -11,6 +11,18 @@ In this notebook you will
 
 
 ```python
+# Run this cell unchanged
+import sqlite3
+from pathlib import Path
+
+db_path = Path('data') / 'holidays.db'
+connection = sqlite3.connect(db_path)
+```
+
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
 import sqlite3
 from pathlib import Path
 
@@ -22,6 +34,17 @@ connection = sqlite3.connect(db_path)
 
 
 ```python
+# Run this cell unchanged
+import pandas as pd
+
+def run_query(query):
+    return pd.read_sql(query, connection)
+```
+
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
 import pandas as pd
 
 def run_query(query):
@@ -32,6 +55,7 @@ def run_query(query):
 
 
 ```python
+# Run this cell unchanged
 q = """
 
 SELECT * 
@@ -42,6 +66,105 @@ LIMIT 2
 
 run_query(q)
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2010</td>
+      <td>[{"date": "2010-01-01", "localName": "New Year...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2011</td>
+      <td>[{"date": "2010-12-31", "localName": "New Year...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
+q = """
+
+SELECT * 
+FROM holidays 
+LIMIT 2
+
+"""
+
+run_query(q)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2010</td>
+      <td>[{"date": "2010-01-01", "localName": "New Year...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2011</td>
+      <td>[{"date": "2010-12-31", "localName": "New Year...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 ## Database Information
 
@@ -68,6 +191,7 @@ _Disclaimer: The holidays data is developed programmatically by [this public api
 
 
 ```python
+# Run this cell unchanged
 import json
 
 q = """
@@ -80,6 +204,125 @@ LIMIT 1
 
 run_query(q).data.apply(json.loads).iloc[0][:4]
 ```
+
+
+
+
+    [{'date': '2010-01-01',
+      'localName': "New Year's Day",
+      'name': "New Year's Day",
+      'countryCode': 'US',
+      'fixed': False,
+      'global': True,
+      'counties': None,
+      'launchYear': None,
+      'type': 'Public'},
+     {'date': '2010-01-18',
+      'localName': 'Martin Luther King, Jr. Day',
+      'name': 'Martin Luther King, Jr. Day',
+      'countryCode': 'US',
+      'fixed': False,
+      'global': True,
+      'counties': None,
+      'launchYear': None,
+      'type': 'Public'},
+     {'date': '2010-02-15',
+      'localName': 'Presidents Day',
+      'name': "Washington's Birthday",
+      'countryCode': 'US',
+      'fixed': False,
+      'global': True,
+      'counties': None,
+      'launchYear': None,
+      'type': 'Public'},
+     {'date': '2010-04-02',
+      'localName': 'Good Friday',
+      'name': 'Good Friday',
+      'countryCode': 'US',
+      'fixed': False,
+      'global': False,
+      'counties': ['US-CT',
+       'US-DE',
+       'US-HI',
+       'US-IN',
+       'US-KY',
+       'US-LA',
+       'US-NC',
+       'US-ND',
+       'US-NJ',
+       'US-TN'],
+      'launchYear': None,
+      'type': 'Public'}]
+
+
+
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
+import json
+
+q = """
+
+SELECT data 
+FROM holidays 
+LIMIT 1
+
+"""
+
+run_query(q).data.apply(json.loads).iloc[0][:4]
+```
+
+
+
+
+    [{'date': '2010-01-01',
+      'localName': "New Year's Day",
+      'name': "New Year's Day",
+      'countryCode': 'US',
+      'fixed': False,
+      'global': True,
+      'counties': None,
+      'launchYear': None,
+      'type': 'Public'},
+     {'date': '2010-01-18',
+      'localName': 'Martin Luther King, Jr. Day',
+      'name': 'Martin Luther King, Jr. Day',
+      'countryCode': 'US',
+      'fixed': False,
+      'global': True,
+      'counties': None,
+      'launchYear': None,
+      'type': 'Public'},
+     {'date': '2010-02-15',
+      'localName': 'Presidents Day',
+      'name': "Washington's Birthday",
+      'countryCode': 'US',
+      'fixed': False,
+      'global': True,
+      'counties': None,
+      'launchYear': None,
+      'type': 'Public'},
+     {'date': '2010-04-02',
+      'localName': 'Good Friday',
+      'name': 'Good Friday',
+      'countryCode': 'US',
+      'fixed': False,
+      'global': False,
+      'counties': ['US-CT',
+       'US-DE',
+       'US-HI',
+       'US-IN',
+       'US-KY',
+       'US-LA',
+       'US-NC',
+       'US-ND',
+       'US-NJ',
+       'US-TN'],
+      'launchYear': None,
+      'type': 'Public'}]
+
+
 
 The sql function we will use to parse this data is [JSON_EXTRACT](https://www.sqlite.org/json1.html#jex).
 
@@ -112,6 +355,7 @@ The comments above are provided to break down the query, but they make the logic
 
 
 ```python
+# Run this cell unchanged
 q = """
 SELECT 
      JSON_EXTRACT('["cat", "dog"]', '$[0]') AS index_0
@@ -120,6 +364,93 @@ SELECT
 
 run_query(q)
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index_0</th>
+      <th>index_1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>cat</td>
+      <td>dog</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
+q = """
+SELECT 
+     JSON_EXTRACT('["cat", "dog"]', '$[0]') AS index_0
+   , JSON_EXTRACT('["cat", "dog"]', '$[1]') AS index_1
+"""
+
+run_query(q)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index_0</th>
+      <th>index_1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>cat</td>
+      <td>dog</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 Take a second to compare the query we just ran with the commented version. How does the query compare with the output?
 
@@ -146,6 +477,57 @@ And here is the query without the comments...
 
 
 ```python
+# Run this cell unchanged
+q = """
+SELECT 
+     JSON_EXTRACT('{"key0":"cat", "key1":"dog"}', '$.key0') AS value_0
+   , JSON_EXTRACT('{"key0":"cat", "key1":"dog"}', '$.key1') AS value_1
+"""
+
+run_query(q)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>value_0</th>
+      <th>value_1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>cat</td>
+      <td>dog</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
 q = """
 SELECT 
      JSON_EXTRACT('{"key0":"cat", "key1":"dog"}', '$.key0') AS value_0
@@ -170,6 +552,59 @@ Here is an example of parsing this nested data...
 
 
 ```python
+# Run this cell unchanged
+q = """
+
+SELECT 
+    JSON_EXTRACT('[{"key0":"cat"}, {"key0":"dog"}]', '$[0].key0') dictionary_0
+  , JSON_EXTRACT('[{"key0":"cat"}, {"key0":"dog"}]', '$[1].key0') dictionary_1
+
+"""
+
+run_query(q)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dictionary_0</th>
+      <th>dictionary_1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>cat</td>
+      <td>dog</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
 q = """
 
 SELECT 
@@ -219,6 +654,123 @@ q = """
 run_query(q)
 ```
 
+
+```python
+#__SOLUTION__
+# Your code goes here
+q = """
+
+SELECT year
+     , JSON_EXTRACT(data, '$[2].date') third_holiday_date
+FROM holidays
+
+"""
+```
+
+
+```python
+#__SOLUTION__
+# Run this cell to check your queries output
+run_query(q)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>third_holiday_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2010</td>
+      <td>2010-02-15</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2011</td>
+      <td>2011-02-21</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2012</td>
+      <td>2012-02-20</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2013</td>
+      <td>2013-01-21</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2014</td>
+      <td>2014-02-17</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2015</td>
+      <td>2015-02-16</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2016</td>
+      <td>2016-02-15</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2017</td>
+      <td>2017-01-20</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2018</td>
+      <td>2018-02-19</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2019</td>
+      <td>2019-02-18</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2020</td>
+      <td>2020-02-17</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>2021</td>
+      <td>2021-01-20</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>2022</td>
+      <td>2022-02-21</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
 # Task 2 - Unnest the data
 
 This task is a _total_ level up, but it's where the usage of `JSON_EXTRACT` gets really cool/useful!
@@ -230,7 +782,309 @@ The important information from the cell below is what the original data looks li
 
 
 ```python
-# Run this code unchanged
+# Run this cell unchanged
+from IPython.display import Markdown
+display(Markdown('### The original data:'))
+display(run_query('select * from holidays'))
+display(Markdown('### The vertically expanded data:'))
+
+pd.DataFrame(run_query('select * from holidays') # load the entire holidays tables
+ .assign(data=lambda x:x.data.apply(json.loads)) # convert the lists in the data column to actual lists (They are strings in sql)
+ .explode('data') # expand the table vertically so each list observation is given its own row
+ .data.tolist() # Converting the results to a list of dictionaries so pandas can read the individual dictionaries
+).assign(year=lambda x: x.date.str[:4]) # Adding the year column back in
+```
+
+
+### The original data:
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2010</td>
+      <td>[{"date": "2010-01-01", "localName": "New Year...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2011</td>
+      <td>[{"date": "2010-12-31", "localName": "New Year...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2012</td>
+      <td>[{"date": "2012-01-02", "localName": "New Year...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2013</td>
+      <td>[{"date": "2013-01-01", "localName": "New Year...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2014</td>
+      <td>[{"date": "2014-01-01", "localName": "New Year...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2015</td>
+      <td>[{"date": "2015-01-01", "localName": "New Year...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2016</td>
+      <td>[{"date": "2016-01-01", "localName": "New Year...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2017</td>
+      <td>[{"date": "2017-01-02", "localName": "New Year...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2018</td>
+      <td>[{"date": "2018-01-01", "localName": "New Year...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2019</td>
+      <td>[{"date": "2019-01-01", "localName": "New Year...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2020</td>
+      <td>[{"date": "2020-01-01", "localName": "New Year...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>2021</td>
+      <td>[{"date": "2021-01-01", "localName": "New Year...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>2022</td>
+      <td>[{"date": "2021-12-31", "localName": "New Year...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+### The vertically expanded data:
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>date</th>
+      <th>localName</th>
+      <th>name</th>
+      <th>countryCode</th>
+      <th>fixed</th>
+      <th>global</th>
+      <th>counties</th>
+      <th>launchYear</th>
+      <th>type</th>
+      <th>year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2010-01-01</td>
+      <td>New Year's Day</td>
+      <td>New Year's Day</td>
+      <td>US</td>
+      <td>False</td>
+      <td>True</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>Public</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2010-01-18</td>
+      <td>Martin Luther King, Jr. Day</td>
+      <td>Martin Luther King, Jr. Day</td>
+      <td>US</td>
+      <td>False</td>
+      <td>True</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>Public</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2010-02-15</td>
+      <td>Presidents Day</td>
+      <td>Washington's Birthday</td>
+      <td>US</td>
+      <td>False</td>
+      <td>True</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>Public</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2010-04-02</td>
+      <td>Good Friday</td>
+      <td>Good Friday</td>
+      <td>US</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[US-CT, US-DE, US-HI, US-IN, US-KY, US-LA, US-...</td>
+      <td>NaN</td>
+      <td>Public</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2010-04-02</td>
+      <td>Good Friday</td>
+      <td>Good Friday</td>
+      <td>US</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[US-TX]</td>
+      <td>NaN</td>
+      <td>Optional</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>156</th>
+      <td>2022-09-05</td>
+      <td>Labor Day</td>
+      <td>Labour Day</td>
+      <td>US</td>
+      <td>False</td>
+      <td>True</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>Public</td>
+      <td>2022</td>
+    </tr>
+    <tr>
+      <th>157</th>
+      <td>2022-10-10</td>
+      <td>Columbus Day</td>
+      <td>Columbus Day</td>
+      <td>US</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[US-AL, US-AZ, US-CO, US-CT, US-DC, US-GA, US-...</td>
+      <td>NaN</td>
+      <td>Public</td>
+      <td>2022</td>
+    </tr>
+    <tr>
+      <th>158</th>
+      <td>2022-11-11</td>
+      <td>Veterans Day</td>
+      <td>Veterans Day</td>
+      <td>US</td>
+      <td>False</td>
+      <td>True</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>Public</td>
+      <td>2022</td>
+    </tr>
+    <tr>
+      <th>159</th>
+      <td>2022-11-24</td>
+      <td>Thanksgiving Day</td>
+      <td>Thanksgiving Day</td>
+      <td>US</td>
+      <td>False</td>
+      <td>True</td>
+      <td>None</td>
+      <td>1863.0</td>
+      <td>Public</td>
+      <td>2022</td>
+    </tr>
+    <tr>
+      <th>160</th>
+      <td>2022-12-26</td>
+      <td>Christmas Day</td>
+      <td>Christmas Day</td>
+      <td>US</td>
+      <td>False</td>
+      <td>True</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>Public</td>
+      <td>2022</td>
+    </tr>
+  </tbody>
+</table>
+<p>161 rows × 10 columns</p>
+</div>
+
+
+
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
 from IPython.display import Markdown
 display(Markdown('### The original data:'))
 display(run_query('select * from holidays'))
@@ -270,6 +1124,83 @@ In sql, it looks like this...
 
 
 ```python
+# Run this cell unchanged
+q = """
+
+SELECT 1, 2, 3
+UNION ALL
+SELECT 4, 5, 6
+UNION ALL
+SELECT 7, 8, 9
+UNION ALL
+SELECT 10, 11, 12
+
+"""
+
+run_query(q)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
 q = """
 
 SELECT 1, 2, 3
@@ -321,6 +1252,66 @@ SELECT * FROM
  
 CROSS JOIN
 
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
+from itertools import product
+
+list_1 = [1,2,3]
+list_2 = [4,5,6]
+
+list(product(list_1, list_2))
+```
+
+The code cell above takes two lists `[1,2,3]` and `[4,5,6]` and then generates every possible combination of two numbers between the data in both lists.
+
+In sql, the two lists represent two seperate tables, and each number represents a row.
+
+Here is the same result in sql...
+
+
+```python
+# Run this cell unchanged
+q = """
+
+SELECT * FROM
+(          SELECT 1
+ UNION ALL SELECT 2
+ UNION ALL SELECT 3)
+ 
+CROSS JOIN
+
+(          SELECT 4
+ UNION ALL SELECT 5
+ UNION ALL SELECT 6)
+
+"""
+
+# Using cursor because column names are not needed
+connection.cursor().execute(q).fetchall()
+```
+
+
+
+
+    [(1, 4), (1, 5), (1, 6), (2, 4), (2, 5), (2, 6), (3, 4), (3, 5), (3, 6)]
+
+
+
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
+q = """
+
+SELECT * FROM
+(          SELECT 1
+ UNION ALL SELECT 2
+ UNION ALL SELECT 3)
+ 
+CROSS JOIN
+
 (          SELECT 4
  UNION ALL SELECT 5
  UNION ALL SELECT 6)
@@ -339,6 +1330,133 @@ It looks like this...
 
 
 ```python
+# Run this cell unchanged
+q = """
+SELECT n1.num || ' + ' || (n2.num * 10) || ' =' number1_number2
+     , n1.num + n2.num * 10 number_range
+FROM
+(         SELECT 0 AS num
+UNION ALL SELECT 1 AS num
+UNION ALL SELECT 2 AS num
+UNION ALL SELECT 3 AS num
+UNION ALL SELECT 4 AS num
+UNION ALL SELECT 5 as num
+UNION ALL SELECT 6 as num
+UNION ALL SELECT 7 as num
+UNION ALL SELECT 8 as num
+UNION ALL SELECT 9 as num) n1
+
+CROSS JOIN
+
+(         SELECT 0 AS num
+UNION ALL SELECT 1 AS num
+UNION ALL SELECT 2 AS num
+UNION ALL SELECT 3 AS num
+UNION ALL SELECT 4 AS num
+UNION ALL SELECT 5 as num
+UNION ALL SELECT 6 as num
+UNION ALL SELECT 7 as num
+UNION ALL SELECT 8 as num
+UNION ALL SELECT 9 as num) n2
+ORDER BY number_range
+
+"""
+
+run_query(q)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>number1_number2</th>
+      <th>number_range</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0 + 0 =</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1 + 0 =</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2 + 0 =</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3 + 0 =</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4 + 0 =</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>5 + 90 =</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>6 + 90 =</td>
+      <td>96</td>
+    </tr>
+    <tr>
+      <th>97</th>
+      <td>7 + 90 =</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>8 + 90 =</td>
+      <td>98</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>9 + 90 =</td>
+      <td>99</td>
+    </tr>
+  </tbody>
+</table>
+<p>100 rows × 2 columns</p>
+</div>
+
+
+
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
 q = """
 SELECT n1.num || ' + ' || (n2.num * 10) || ' =' number1_number2
      , n1.num + n2.num * 10 number_range
@@ -377,6 +1495,146 @@ The first column above is a string concatenation of the two numbers from each ta
 
 
 ```python
+# Run this cell unchanged
+q = """
+SELECT n1.num || ' + ' || (n2.num * 10) || ' + ' || (n3.num * 100) || ' =' number1_number2_number3
+     , n1.num + n2.num * 10 + n3.num * 100 number_range
+FROM
+(SELECT 0 AS num
+UNION ALL SELECT 1 AS num
+UNION ALL SELECT 2 AS num
+UNION ALL SELECT 3 AS num
+UNION ALL SELECT 4 AS num
+UNION ALL SELECT 5 as num
+UNION ALL SELECT 6 as num
+UNION ALL SELECT 7 as num
+UNION ALL SELECT 8 as num
+UNION ALL SELECT 9 as num) n1
+
+CROSS JOIN
+
+(SELECT 0 AS num
+UNION ALL SELECT 1 AS num
+UNION ALL SELECT 2 AS num
+UNION ALL SELECT 3 AS num
+UNION ALL SELECT 4 AS num
+UNION ALL SELECT 5 as num
+UNION ALL SELECT 6 as num
+UNION ALL SELECT 7 as num
+UNION ALL SELECT 8 as num
+UNION ALL SELECT 9 as num) n2
+
+CROSS JOIN
+
+(SELECT 0 AS num
+UNION ALL SELECT 1 AS num
+UNION ALL SELECT 2 AS num
+UNION ALL SELECT 3 AS num
+UNION ALL SELECT 4 AS num
+UNION ALL SELECT 5 as num
+UNION ALL SELECT 6 as num
+UNION ALL SELECT 7 as num
+UNION ALL SELECT 8 as num
+UNION ALL SELECT 9 as num) n3
+ORDER BY number_range
+
+"""
+
+run_query(q)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>number1_number2_number3</th>
+      <th>number_range</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0 + 0 + 0 =</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1 + 0 + 0 =</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2 + 0 + 0 =</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3 + 0 + 0 =</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4 + 0 + 0 =</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>995</th>
+      <td>5 + 90 + 900 =</td>
+      <td>995</td>
+    </tr>
+    <tr>
+      <th>996</th>
+      <td>6 + 90 + 900 =</td>
+      <td>996</td>
+    </tr>
+    <tr>
+      <th>997</th>
+      <td>7 + 90 + 900 =</td>
+      <td>997</td>
+    </tr>
+    <tr>
+      <th>998</th>
+      <td>8 + 90 + 900 =</td>
+      <td>998</td>
+    </tr>
+    <tr>
+      <th>999</th>
+      <td>9 + 90 + 900 =</td>
+      <td>999</td>
+    </tr>
+  </tbody>
+</table>
+<p>1000 rows × 2 columns</p>
+</div>
+
+
+
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
 q = """
 SELECT n1.num || ' + ' || (n2.num * 10) || ' + ' || (n3.num * 100) || ' =' number1_number2_number3
      , n1.num + n2.num * 10 + n3.num * 100 number_range
@@ -442,6 +1700,127 @@ Let's look at an example:
 
 
 ```python
+# Run this cell unchanged
+q = """
+
+WITH numbers AS (
+                 SELECT 0 AS num
+                 UNION ALL SELECT 1 AS num
+                 UNION ALL SELECT 2 AS num
+                 UNION ALL SELECT 3 AS num
+                 UNION ALL SELECT 4 AS num
+                 UNION ALL SELECT 5 as num
+                 UNION ALL SELECT 6 as num
+                 UNION ALL SELECT 7 as num
+                 UNION ALL SELECT 8 as num
+                 UNION ALL SELECT 9 as num
+)
+, number_range AS ( SELECT n1.num || ' + ' || (n2.num * 10) || ' + ' || (n3.num * 100) || ' =' number1_number2_number3
+                         , n1.num + n2.num * 10 + n3.num * 100 AS number_range
+                    FROM numbers n1
+                    CROSS JOIN numbers n2
+                    CROSS JOIN numbers n3
+                    ORDER BY number_range
+)
+SELECT * FROM number_range
+
+"""
+
+run_query(q)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>number1_number2_number3</th>
+      <th>number_range</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0 + 0 + 0 =</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1 + 0 + 0 =</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2 + 0 + 0 =</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3 + 0 + 0 =</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4 + 0 + 0 =</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>995</th>
+      <td>5 + 90 + 900 =</td>
+      <td>995</td>
+    </tr>
+    <tr>
+      <th>996</th>
+      <td>6 + 90 + 900 =</td>
+      <td>996</td>
+    </tr>
+    <tr>
+      <th>997</th>
+      <td>7 + 90 + 900 =</td>
+      <td>997</td>
+    </tr>
+    <tr>
+      <th>998</th>
+      <td>8 + 90 + 900 =</td>
+      <td>998</td>
+    </tr>
+    <tr>
+      <th>999</th>
+      <td>9 + 90 + 900 =</td>
+      <td>999</td>
+    </tr>
+  </tbody>
+</table>
+<p>1000 rows × 2 columns</p>
+</div>
+
+
+
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
 q = """
 
 WITH numbers AS (
@@ -488,6 +1867,51 @@ Before we write out the final query, let's take a look at how we turn this range
 
 
 ```python
+# Run this cell unchanged
+run_query('select * from long_weekends limit 1')
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2010</td>
+      <td>[{"startDate": "2010-01-01", "endDate": "2010-...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
 run_query('select * from long_weekends limit 1')
 ```
 
@@ -500,6 +1924,143 @@ We can do this by...
 
 
 ```python
+# Run this cell unchanged
+q = """
+
+WITH numbers AS (
+                 SELECT 0 AS num
+                 UNION ALL SELECT 1 AS num
+                 UNION ALL SELECT 2 AS num
+                 UNION ALL SELECT 3 AS num
+                 UNION ALL SELECT 4 AS num
+                 UNION ALL SELECT 5 as num
+                 UNION ALL SELECT 6 as num
+                 UNION ALL SELECT 7 as num
+                 UNION ALL SELECT 8 as num
+                 UNION ALL SELECT 9 as num
+)
+, for_loop AS (
+                SELECT 0 + n1.num + n2.num * 10 + n3.num * 100 AS i
+                FROM numbers n1
+                CROSS JOIN numbers n2
+                CROSS JOIN numbers n3
+                ORDER BY i
+                )
+SELECT
+       JSON_EXTRACT(l.data, '$['|| loop.i || '].startDate') start_date
+     , JSON_EXTRACT(l.data, '$['|| loop.i || '].endDate') end_date
+     , l.year
+FROM (SELECT * FROM long_weekends LIMIT 1) l 
+CROSS JOIN for_loop loop
+"""
+
+run_query(q)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>start_date</th>
+      <th>end_date</th>
+      <th>year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2010-01-01</td>
+      <td>2010-01-03</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2010-01-16</td>
+      <td>2010-01-18</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2010-02-13</td>
+      <td>2010-02-15</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2010-05-29</td>
+      <td>2010-05-31</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2010-07-03</td>
+      <td>2010-07-05</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>995</th>
+      <td>None</td>
+      <td>None</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>996</th>
+      <td>None</td>
+      <td>None</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>997</th>
+      <td>None</td>
+      <td>None</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>998</th>
+      <td>None</td>
+      <td>None</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>999</th>
+      <td>None</td>
+      <td>None</td>
+      <td>2010</td>
+    </tr>
+  </tbody>
+</table>
+<p>1000 rows × 3 columns</p>
+</div>
+
+
+
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
 q = """
 
 WITH numbers AS (
@@ -542,6 +2103,202 @@ As a reminder, your query should return data that looks like the following outpu
 
 
 ```python
+# Run this cell unchanged
+pd.DataFrame(run_query('select * from holidays')
+ .assign(data=lambda x:x.data.apply(json.loads))
+ .explode('data')
+ .data.tolist() 
+).assign(year=lambda x: x.date.str[:4])
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>date</th>
+      <th>localName</th>
+      <th>name</th>
+      <th>countryCode</th>
+      <th>fixed</th>
+      <th>global</th>
+      <th>counties</th>
+      <th>launchYear</th>
+      <th>type</th>
+      <th>year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2010-01-01</td>
+      <td>New Year's Day</td>
+      <td>New Year's Day</td>
+      <td>US</td>
+      <td>False</td>
+      <td>True</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>Public</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2010-01-18</td>
+      <td>Martin Luther King, Jr. Day</td>
+      <td>Martin Luther King, Jr. Day</td>
+      <td>US</td>
+      <td>False</td>
+      <td>True</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>Public</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2010-02-15</td>
+      <td>Presidents Day</td>
+      <td>Washington's Birthday</td>
+      <td>US</td>
+      <td>False</td>
+      <td>True</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>Public</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2010-04-02</td>
+      <td>Good Friday</td>
+      <td>Good Friday</td>
+      <td>US</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[US-CT, US-DE, US-HI, US-IN, US-KY, US-LA, US-...</td>
+      <td>NaN</td>
+      <td>Public</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2010-04-02</td>
+      <td>Good Friday</td>
+      <td>Good Friday</td>
+      <td>US</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[US-TX]</td>
+      <td>NaN</td>
+      <td>Optional</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>156</th>
+      <td>2022-09-05</td>
+      <td>Labor Day</td>
+      <td>Labour Day</td>
+      <td>US</td>
+      <td>False</td>
+      <td>True</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>Public</td>
+      <td>2022</td>
+    </tr>
+    <tr>
+      <th>157</th>
+      <td>2022-10-10</td>
+      <td>Columbus Day</td>
+      <td>Columbus Day</td>
+      <td>US</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[US-AL, US-AZ, US-CO, US-CT, US-DC, US-GA, US-...</td>
+      <td>NaN</td>
+      <td>Public</td>
+      <td>2022</td>
+    </tr>
+    <tr>
+      <th>158</th>
+      <td>2022-11-11</td>
+      <td>Veterans Day</td>
+      <td>Veterans Day</td>
+      <td>US</td>
+      <td>False</td>
+      <td>True</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>Public</td>
+      <td>2022</td>
+    </tr>
+    <tr>
+      <th>159</th>
+      <td>2022-11-24</td>
+      <td>Thanksgiving Day</td>
+      <td>Thanksgiving Day</td>
+      <td>US</td>
+      <td>False</td>
+      <td>True</td>
+      <td>None</td>
+      <td>1863.0</td>
+      <td>Public</td>
+      <td>2022</td>
+    </tr>
+    <tr>
+      <th>160</th>
+      <td>2022-12-26</td>
+      <td>Christmas Day</td>
+      <td>Christmas Day</td>
+      <td>US</td>
+      <td>False</td>
+      <td>True</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>Public</td>
+      <td>2022</td>
+    </tr>
+  </tbody>
+</table>
+<p>161 rows × 10 columns</p>
+</div>
+
+
+
+
+```python
+#__SOLUTION__
+# Run this cell unchanged
 pd.DataFrame(run_query('select * from holidays')
  .assign(data=lambda x:x.data.apply(json.loads))
  .explode('data')
