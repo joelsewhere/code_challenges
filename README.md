@@ -19,17 +19,6 @@ db_path = Path('data') / 'holidays.db'
 connection = sqlite3.connect(db_path)
 ```
 
-
-```python
-#__SOLUTION__
-# Run this cell unchanged
-import sqlite3
-from pathlib import Path
-
-db_path = Path('data') / 'holidays.db'
-connection = sqlite3.connect(db_path)
-```
-
 **Next we define a helper function to make querying the database a bit simpler**
 
 
@@ -41,77 +30,10 @@ def run_query(query):
     return pd.read_sql(query, connection)
 ```
 
-
-```python
-#__SOLUTION__
-# Run this cell unchanged
-import pandas as pd
-
-def run_query(query):
-    return pd.read_sql(query, connection)
-```
-
 **Now we can run queries by passing a query string into the `run_query` function**
 
 
 ```python
-# Run this cell unchanged
-q = """
-
-SELECT * 
-FROM holidays 
-LIMIT 2
-
-"""
-
-run_query(q)
-```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>year</th>
-      <th>data</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2010</td>
-      <td>[{"date": "2010-01-01", "localName": "New Year...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2011</td>
-      <td>[{"date": "2010-12-31", "localName": "New Year...</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-
-```python
-#__SOLUTION__
 # Run this cell unchanged
 q = """
 
@@ -256,74 +178,6 @@ run_query(q).data.apply(json.loads).iloc[0][:4]
 
 
 
-
-```python
-#__SOLUTION__
-# Run this cell unchanged
-import json
-
-q = """
-
-SELECT data 
-FROM holidays 
-LIMIT 1
-
-"""
-
-run_query(q).data.apply(json.loads).iloc[0][:4]
-```
-
-
-
-
-    [{'date': '2010-01-01',
-      'localName': "New Year's Day",
-      'name': "New Year's Day",
-      'countryCode': 'US',
-      'fixed': False,
-      'global': True,
-      'counties': None,
-      'launchYear': None,
-      'type': 'Public'},
-     {'date': '2010-01-18',
-      'localName': 'Martin Luther King, Jr. Day',
-      'name': 'Martin Luther King, Jr. Day',
-      'countryCode': 'US',
-      'fixed': False,
-      'global': True,
-      'counties': None,
-      'launchYear': None,
-      'type': 'Public'},
-     {'date': '2010-02-15',
-      'localName': 'Presidents Day',
-      'name': "Washington's Birthday",
-      'countryCode': 'US',
-      'fixed': False,
-      'global': True,
-      'counties': None,
-      'launchYear': None,
-      'type': 'Public'},
-     {'date': '2010-04-02',
-      'localName': 'Good Friday',
-      'name': 'Good Friday',
-      'countryCode': 'US',
-      'fixed': False,
-      'global': False,
-      'counties': ['US-CT',
-       'US-DE',
-       'US-HI',
-       'US-IN',
-       'US-KY',
-       'US-LA',
-       'US-NC',
-       'US-ND',
-       'US-NJ',
-       'US-TN'],
-      'launchYear': None,
-      'type': 'Public'}]
-
-
-
 The sql function we will use to parse this data is [JSON_EXTRACT](https://www.sqlite.org/json1.html#jex).
 
 This function requires a minimum of two arguments.
@@ -355,56 +209,6 @@ The comments above are provided to break down the query, but they make the logic
 
 
 ```python
-# Run this cell unchanged
-q = """
-SELECT 
-     JSON_EXTRACT('["cat", "dog"]', '$[0]') AS index_0
-   , JSON_EXTRACT('["cat", "dog"]', '$[1]') AS index_1
-"""
-
-run_query(q)
-```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>index_0</th>
-      <th>index_1</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>cat</td>
-      <td>dog</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-
-```python
-#__SOLUTION__
 # Run this cell unchanged
 q = """
 SELECT 
@@ -524,19 +328,6 @@ run_query(q)
 
 
 
-
-```python
-#__SOLUTION__
-# Run this cell unchanged
-q = """
-SELECT 
-     JSON_EXTRACT('{"key0":"cat", "key1":"dog"}', '$.key0') AS value_0
-   , JSON_EXTRACT('{"key0":"cat", "key1":"dog"}', '$.key1') AS value_1
-"""
-
-run_query(q)
-```
-
 Ok, so... 
 - we know how to index a list in sql
 - we know how to key a dictionary in sql
@@ -601,21 +392,6 @@ run_query(q)
 
 
 
-
-```python
-#__SOLUTION__
-# Run this cell unchanged
-q = """
-
-SELECT 
-    JSON_EXTRACT('[{"key0":"cat"}, {"key0":"dog"}]', '$[0].key0') dictionary_0
-  , JSON_EXTRACT('[{"key0":"cat"}, {"key0":"dog"}]', '$[1].key0') dictionary_1
-
-"""
-
-run_query(q)
-```
-
 ## Task 1 - Write your query
 
 In the cell below, write a query that collects the third holiday date for each year
@@ -640,23 +416,6 @@ Your query should return an output that looks like this
 
 
 ```python
-# Your code goes here
-q = """
-
-
-
-"""
-```
-
-
-```python
-# Run this cell to check your queries output
-run_query(q)
-```
-
-
-```python
-#__SOLUTION__
 # Your code goes here
 q = """
 
@@ -1080,22 +839,6 @@ pd.DataFrame(run_query('select * from holidays') # load the entire holidays tabl
 
 
 
-
-```python
-#__SOLUTION__
-# Run this cell unchanged
-from IPython.display import Markdown
-display(Markdown('### The original data:'))
-display(run_query('select * from holidays'))
-display(Markdown('### The vertically expanded data:'))
-
-pd.DataFrame(run_query('select * from holidays') # load the entire holidays tables
- .assign(data=lambda x:x.data.apply(json.loads)) # convert the lists in the data column to actual lists (They are strings in sql)
- .explode('data') # expand the table vertically so each list observation is given its own row
- .data.tolist() # Converting the results to a list of dictionaries so pandas can read the individual dictionaries
-).assign(year=lambda x: x.date.str[:4]) # Adding the year column back in
-```
-
 **Ok so how do we do this in sql????**
 
 Let's start with talking about **[unions](https://www.w3schools.com/sql/sql_ref_union.asp)** and **[cross joins](https://www.w3resource.com/sql/joins/cross-join.php)**
@@ -1349,25 +1092,6 @@ run_query(q)
 
 
 
-
-```python
-#__SOLUTION__
-# Run this cell unchanged
-q = """
-
-SELECT 1, 2, 3
-UNION ALL
-SELECT 4, 5, 6
-UNION ALL
-SELECT 7, 8, 9
-UNION ALL
-SELECT 10, 11, 12
-
-"""
-
-run_query(q)
-```
-
 Ur probably like, "Cool...but...why are we talking about **unions**???""
 
 Solid question. To unnest the json data, we essentially need to run a **for loop** in sql. This for loop iterates over a range of numbers, and uses each number to index the list of holiday dictionaries in order to pull the data from the list. We will use unions to generate the range of numbers.
@@ -1428,29 +1152,6 @@ connection.cursor().execute(q).fetchall()
     [(1, 4), (1, 5), (1, 6), (2, 4), (2, 5), (2, 6), (3, 4), (3, 5), (3, 6)]
 
 
-
-
-```python
-#__SOLUTION__
-# Run this cell unchanged
-q = """
-
-SELECT * FROM
-(          SELECT 1
- UNION ALL SELECT 2
- UNION ALL SELECT 3)
- 
-CROSS JOIN
-
-(          SELECT 4
- UNION ALL SELECT 5
- UNION ALL SELECT 6)
-
-"""
-
-# Using cursor because column names are not needed
-connection.cursor().execute(q).fetchall()
-```
 
 Again, you are probably wondering, "how are cross joins relevant to our problem?"
 
@@ -1582,44 +1283,6 @@ run_query(q)
 </div>
 
 
-
-
-```python
-#__SOLUTION__
-# Run this cell unchanged
-q = """
-SELECT n1.num || ' + ' || (n2.num * 10) || ' =' number1_number2
-     , n1.num + n2.num * 10 number_range
-FROM
-(         SELECT 0 AS num
-UNION ALL SELECT 1 AS num
-UNION ALL SELECT 2 AS num
-UNION ALL SELECT 3 AS num
-UNION ALL SELECT 4 AS num
-UNION ALL SELECT 5 as num
-UNION ALL SELECT 6 as num
-UNION ALL SELECT 7 as num
-UNION ALL SELECT 8 as num
-UNION ALL SELECT 9 as num) n1
-
-CROSS JOIN
-
-(         SELECT 0 AS num
-UNION ALL SELECT 1 AS num
-UNION ALL SELECT 2 AS num
-UNION ALL SELECT 3 AS num
-UNION ALL SELECT 4 AS num
-UNION ALL SELECT 5 as num
-UNION ALL SELECT 6 as num
-UNION ALL SELECT 7 as num
-UNION ALL SELECT 8 as num
-UNION ALL SELECT 9 as num) n2
-ORDER BY number_range
-
-"""
-
-run_query(q)
-```
 
 The first column above is a string concatenation of the two numbers from each table, and is meant to show you how each number in the `number_range` column is being created. We can increase the numbers in our range by adding a third cross join and multiplying it by 100
 
@@ -1761,57 +1424,6 @@ run_query(q)
 
 
 
-
-```python
-#__SOLUTION__
-# Run this cell unchanged
-q = """
-SELECT n1.num || ' + ' || (n2.num * 10) || ' + ' || (n3.num * 100) || ' =' number1_number2_number3
-     , n1.num + n2.num * 10 + n3.num * 100 number_range
-FROM
-(SELECT 0 AS num
-UNION ALL SELECT 1 AS num
-UNION ALL SELECT 2 AS num
-UNION ALL SELECT 3 AS num
-UNION ALL SELECT 4 AS num
-UNION ALL SELECT 5 as num
-UNION ALL SELECT 6 as num
-UNION ALL SELECT 7 as num
-UNION ALL SELECT 8 as num
-UNION ALL SELECT 9 as num) n1
-
-CROSS JOIN
-
-(SELECT 0 AS num
-UNION ALL SELECT 1 AS num
-UNION ALL SELECT 2 AS num
-UNION ALL SELECT 3 AS num
-UNION ALL SELECT 4 AS num
-UNION ALL SELECT 5 as num
-UNION ALL SELECT 6 as num
-UNION ALL SELECT 7 as num
-UNION ALL SELECT 8 as num
-UNION ALL SELECT 9 as num) n2
-
-CROSS JOIN
-
-(SELECT 0 AS num
-UNION ALL SELECT 1 AS num
-UNION ALL SELECT 2 AS num
-UNION ALL SELECT 3 AS num
-UNION ALL SELECT 4 AS num
-UNION ALL SELECT 5 as num
-UNION ALL SELECT 6 as num
-UNION ALL SELECT 7 as num
-UNION ALL SELECT 8 as num
-UNION ALL SELECT 9 as num) n3
-ORDER BY number_range
-
-"""
-
-run_query(q)
-```
-
 Now, you may have noticed that our sql is getting a little...messy. If we continue writing our sql this way, our final solution for this problem is going to become _very_ difficult to read. So let's quickly talk about **[Common Table Expressions](https://www.sqlshack.com/sql-server-common-table-expressions-cte/)** (CTE).
 
 CTE's are mostly designed to improve readability of sql and to help avoid redundancy when writing a query. 
@@ -1947,38 +1559,6 @@ run_query(q)
 
 
 
-
-```python
-#__SOLUTION__
-# Run this cell unchanged
-q = """
-
-WITH numbers AS (
-                 SELECT 0 AS num
-                 UNION ALL SELECT 1 AS num
-                 UNION ALL SELECT 2 AS num
-                 UNION ALL SELECT 3 AS num
-                 UNION ALL SELECT 4 AS num
-                 UNION ALL SELECT 5 as num
-                 UNION ALL SELECT 6 as num
-                 UNION ALL SELECT 7 as num
-                 UNION ALL SELECT 8 as num
-                 UNION ALL SELECT 9 as num
-)
-, number_range AS ( SELECT n1.num || ' + ' || (n2.num * 10) || ' + ' || (n3.num * 100) || ' =' number1_number2_number3
-                         , n1.num + n2.num * 10 + n3.num * 100 AS number_range
-                    FROM numbers n1
-                    CROSS JOIN numbers n2
-                    CROSS JOIN numbers n3
-                    ORDER BY number_range
-)
-SELECT * FROM number_range
-
-"""
-
-run_query(q)
-```
-
 In the above query...
 1. We tell the computer we would like to use CTE's via the `WITH` command
 1. We define a table called `numbers` that contains the numbers `1-9`
@@ -2037,13 +1617,6 @@ run_query('select * from long_weekends limit 1')
 </div>
 
 
-
-
-```python
-#__SOLUTION__
-# Run this cell unchanged
-run_query('select * from long_weekends limit 1')
-```
 
 Let's say we want to expand json data in the output below so each dictionary has its own row. For now we will just grab the `startDate` and `endDate` for each dictionary.
 
@@ -2186,42 +1759,6 @@ run_query(q)
 </div>
 
 
-
-
-```python
-#__SOLUTION__
-# Run this cell unchanged
-q = """
-
-WITH numbers AS (
-                 SELECT 0 AS num
-                 UNION ALL SELECT 1 AS num
-                 UNION ALL SELECT 2 AS num
-                 UNION ALL SELECT 3 AS num
-                 UNION ALL SELECT 4 AS num
-                 UNION ALL SELECT 5 as num
-                 UNION ALL SELECT 6 as num
-                 UNION ALL SELECT 7 as num
-                 UNION ALL SELECT 8 as num
-                 UNION ALL SELECT 9 as num
-)
-, for_loop AS (
-                SELECT 0 + n1.num + n2.num * 10 + n3.num * 100 AS i
-                FROM numbers n1
-                CROSS JOIN numbers n2
-                CROSS JOIN numbers n3
-                ORDER BY i
-                )
-SELECT
-       JSON_EXTRACT(l.data, '$['|| loop.i || '].startDate') start_date
-     , JSON_EXTRACT(l.data, '$['|| loop.i || '].endDate') end_date
-     , l.year
-FROM (SELECT * FROM long_weekends LIMIT 1) l 
-CROSS JOIN for_loop loop
-"""
-
-run_query(q)
-```
 
 Looking at the output above, we have a bunch of values with no `start_date` or `end_date`. This is because we are looping over the numbers `1-1000` and 2010 did not have 1,000 long weekends. We can avoid this by either filtering out nulls in the final query or by limiting the size of the `for_loop` table.
 
@@ -2427,34 +1964,6 @@ pd.DataFrame(run_query('select * from holidays')
 
 
 ```python
-#__SOLUTION__
-# Run this cell unchanged
-pd.DataFrame(run_query('select * from holidays')
- .assign(data=lambda x:x.data.apply(json.loads))
- .explode('data')
- .data.tolist() 
-).assign(year=lambda x: x.date.str[:4])
-```
-
-
-```python
-# Your code here
-q = """
-
-
-
-"""
-```
-
-
-```python
-# Run this cell to check your query's output
-run_query(q)
-```
-
-
-```python
-#__SOLUTION__
 q = """
 WITH numbers AS (
                  SELECT 0 AS num
