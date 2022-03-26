@@ -53,6 +53,7 @@ In this notebook you will
 
 
 ```python
+# Run this cell unchanged
 import sqlite3
 from pathlib import Path
 
@@ -63,6 +64,7 @@ connection = sqlite3.connect(db_path)
 
 ```python
 #__SOLUTION__
+# Run this cell unchanged
 import sqlite3
 from pathlib import Path
 
@@ -74,6 +76,7 @@ connection = sqlite3.connect(db_path)
 
 
 ```python
+# Run this cell unchanged
 import pandas as pd
 
 def run_query(query):
@@ -83,6 +86,7 @@ def run_query(query):
 
 ```python
 #__SOLUTION__
+# Run this cell unchanged
 import pandas as pd
 
 def run_query(query):
@@ -93,6 +97,7 @@ def run_query(query):
 
 
 ```python
+# Run this cell unchanged
 q = """
 
 SELECT * 
@@ -149,6 +154,7 @@ run_query(q)
 
 ```python
 #__SOLUTION__
+# Run this cell unchanged
 q = """
 
 SELECT * 
@@ -227,6 +233,7 @@ _Disclaimer: The holidays data is developed programmatically by [this public api
 
 
 ```python
+# Run this cell unchanged
 import json
 
 q = """
@@ -294,6 +301,7 @@ run_query(q).data.apply(json.loads).iloc[0][:4]
 
 ```python
 #__SOLUTION__
+# Run this cell unchanged
 import json
 
 q = """
@@ -389,6 +397,7 @@ The comments above are provided to break down the query, but they make the logic
 
 
 ```python
+# Run this cell unchanged
 q = """
 SELECT 
      JSON_EXTRACT('["cat", "dog"]', '$[0]') AS index_0
@@ -438,6 +447,7 @@ run_query(q)
 
 ```python
 #__SOLUTION__
+# Run this cell unchanged
 q = """
 SELECT 
      JSON_EXTRACT('["cat", "dog"]', '$[0]') AS index_0
@@ -509,6 +519,7 @@ And here is the query without the comments...
 
 
 ```python
+# Run this cell unchanged
 q = """
 SELECT 
      JSON_EXTRACT('{"key0":"cat", "key1":"dog"}', '$.key0') AS value_0
@@ -558,6 +569,7 @@ run_query(q)
 
 ```python
 #__SOLUTION__
+# Run this cell unchanged
 q = """
 SELECT 
      JSON_EXTRACT('{"key0":"cat", "key1":"dog"}', '$.key0') AS value_0
@@ -582,6 +594,7 @@ Here is an example of parsing this nested data...
 
 
 ```python
+# Run this cell unchanged
 q = """
 
 SELECT 
@@ -633,6 +646,7 @@ run_query(q)
 
 ```python
 #__SOLUTION__
+# Run this cell unchanged
 q = """
 
 SELECT 
@@ -685,6 +699,7 @@ run_query(q)
 
 ```python
 #__SOLUTION__
+# Your code goes here
 q = """
 
 SELECT year
@@ -809,7 +824,7 @@ The important information from the cell below is what the original data looks li
 
 
 ```python
-# Run this code unchanged
+# Run this cell unchanged
 from IPython.display import Markdown
 display(Markdown('### The original data:'))
 display(run_query('select * from holidays'))
@@ -1111,7 +1126,7 @@ pd.DataFrame(run_query('select * from holidays') # load the entire holidays tabl
 
 ```python
 #__SOLUTION__
-# Run this code unchanged
+# Run this cell unchanged
 from IPython.display import Markdown
 display(Markdown('### The original data:'))
 display(run_query('select * from holidays'))
@@ -1322,6 +1337,7 @@ In sql, it looks like this...
 
 
 ```python
+# Run this cell unchanged
 q = """
 
 SELECT 1, 2, 3
@@ -1397,6 +1413,7 @@ run_query(q)
 
 ```python
 #__SOLUTION__
+# Run this cell unchanged
 q = """
 
 SELECT 1, 2, 3
@@ -1458,6 +1475,7 @@ Here is the same result in sql...
 
 
 ```python
+# Run this cell unchanged
 q = """
 
 SELECT * FROM
@@ -1487,6 +1505,7 @@ connection.cursor().execute(q).fetchall()
 
 ```python
 #__SOLUTION__
+# Run this cell unchanged
 q = """
 
 SELECT * FROM
@@ -1514,6 +1533,7 @@ It looks like this...
 
 
 ```python
+# Run this cell unchanged
 q = """
 SELECT n1.num || ' + ' || (n2.num * 10) || ' =' number1_number2
      , n1.num + n2.num * 10 number_range
@@ -1639,6 +1659,7 @@ run_query(q)
 
 ```python
 #__SOLUTION__
+# Run this cell unchanged
 q = """
 SELECT n1.num || ' + ' || (n2.num * 10) || ' =' number1_number2
      , n1.num + n2.num * 10 number_range
@@ -1677,6 +1698,7 @@ The first column above is a string concatenation of the two numbers from each ta
 
 
 ```python
+# Run this cell unchanged
 q = """
 SELECT n1.num || ' + ' || (n2.num * 10) || ' + ' || (n3.num * 100) || ' =' number1_number2_number3
      , n1.num + n2.num * 10 + n3.num * 100 number_range
@@ -1815,6 +1837,7 @@ run_query(q)
 
 ```python
 #__SOLUTION__
+# Run this cell unchanged
 q = """
 SELECT n1.num || ' + ' || (n2.num * 10) || ' + ' || (n3.num * 100) || ' =' number1_number2_number3
      , n1.num + n2.num * 10 + n3.num * 100 number_range
@@ -1880,6 +1903,7 @@ Let's look at an example:
 
 
 ```python
+# Run this cell unchanged
 q = """
 
 WITH numbers AS (
@@ -1999,6 +2023,7 @@ run_query(q)
 
 ```python
 #__SOLUTION__
+# Run this cell unchanged
 q = """
 
 WITH numbers AS (
@@ -2045,6 +2070,7 @@ Before we write out the final query, let's take a look at how we turn this range
 
 
 ```python
+# Run this cell unchanged
 run_query('select * from long_weekends limit 1')
 ```
 
@@ -2088,6 +2114,7 @@ run_query('select * from long_weekends limit 1')
 
 ```python
 #__SOLUTION__
+# Run this cell unchanged
 run_query('select * from long_weekends limit 1')
 ```
 
@@ -2100,6 +2127,7 @@ We can do this by...
 
 
 ```python
+# Run this cell unchanged
 q = """
 
 WITH numbers AS (
@@ -2235,6 +2263,7 @@ run_query(q)
 
 ```python
 #__SOLUTION__
+# Run this cell unchanged
 q = """
 
 WITH numbers AS (
@@ -2277,6 +2306,7 @@ As a reminder, your query should return data that looks like the following outpu
 
 
 ```python
+# Run this cell unchanged
 pd.DataFrame(run_query('select * from holidays')
  .assign(data=lambda x:x.data.apply(json.loads))
  .explode('data')
@@ -2471,6 +2501,7 @@ pd.DataFrame(run_query('select * from holidays')
 
 ```python
 #__SOLUTION__
+# Run this cell unchanged
 pd.DataFrame(run_query('select * from holidays')
  .assign(data=lambda x:x.data.apply(json.loads))
  .explode('data')
